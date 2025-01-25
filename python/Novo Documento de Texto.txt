@@ -1,0 +1,73 @@
+-- Criação do banco de dados
+CREATE DATABASE EscolaZion;
+
+-- Conectar ao banco de dados EscolaZion
+\c EscolaZion;
+
+-- Criação da tabela de Cursos
+CREATE TABLE Cursos (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    descricao TEXT,
+    duracao INT -- duração do curso em meses
+);
+
+-- Criação da tabela de Professores
+CREATE TABLE Professores (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    sobrenome VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE,
+    telefone VARCHAR(15),
+    especialidade VARCHAR(255)
+);
+
+-- Criação da tabela de Horários
+CREATE TABLE Horarios (
+    id SERIAL PRIMARY KEY,
+    curso_id INT,
+    dia_da_semana VARCHAR(20), -- Ex: Segunda-feira, Terça-feira, etc.
+    hora_inicio TIME,
+    hora_fim TIME,
+    FOREIGN KEY (curso_id) REFERENCES Cursos(id) ON DELETE CASCADE
+);
+
+-- Criação da tabela de Matérias Extras
+CREATE TABLE MateriasExtras (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    descricao TEXT,
+    professor_id INT, -- Um professor pode ser responsável por matérias extras
+    FOREIGN KEY (professor_id) REFERENCES Professores(id) ON DELETE SET NULL
+);
+
+-- Inserção de Dados de Exemplo
+
+-- Inserção na tabela Cursos
+INSERT INTO Cursos (nome, descricao, duracao)
+VALUES 
+('Matemática Avançada', 'Curso de matemática para níveis avançados', 6),
+('Física Experimental', 'Curso sobre experimentos e conceitos de física', 6),
+('Programação Web', 'Curso de desenvolvimento web usando HTML, CSS, JavaScript', 4);
+
+-- Inserção na tabela Professores
+INSERT INTO Professores (nome, sobrenome, email, telefone, especialidade)
+VALUES 
+('João', 'Silva', 'joao.silva@escolazion.com', '999999999', 'Matemática'),
+('Maria', 'Oliveira', 'maria.oliveira@escolazion.com', '988888888', 'Física'),
+('Carlos', 'Pereira', 'carlos.pereira@escolazion.com', '977777777', 'Programação');
+
+-- Inserção na tabela Horários
+INSERT INTO Horarios (curso_id, dia_da_semana, hora_inicio, hora_fim)
+VALUES 
+(1, 'Segunda-feira', '08:00:00', '10:00:00'),
+(1, 'Quarta-feira', '08:00:00', '10:00:00'),
+(2, 'Terça-feira', '10:00:00', '12:00:00'),
+(2, 'Quinta-feira', '10:00:00', '12:00:00'),
+(3, 'Sexta-feira', '14:00:00', '16:00:00');
+
+-- Inserção na tabela Materias Extras
+INSERT INTO MateriasExtras (nome, descricao, professor_id)
+VALUES 
+('Workshop de Cálculo', 'Workshop sobre técnicas de cálculo avançado', 1),
+('Oficina de Experimentos Físicos', 'Oficina prática de experimentos físicos', 2);
