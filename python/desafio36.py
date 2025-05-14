@@ -10,3 +10,4 @@ if prestacao <= minimo:
     print(f'Você pagará {prestacao:.2f} por mês')
 else: 
     print(f'Infelizmente {nome}, seu empréstimo foi negado')
+    print('tente novamente daqui a um ano!\n obrigado por nos escolher.') 
