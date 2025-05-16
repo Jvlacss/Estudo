@@ -1,7 +1,7 @@
 
 
 ## Olá! Sou o joão Lacerda
-formando em Marketing, Admirador de Data Bases e Python.
+Formado em Marketing e graduando em pós graduação em marketing Analyst.
 
 
 ## Meu Gitthub 
